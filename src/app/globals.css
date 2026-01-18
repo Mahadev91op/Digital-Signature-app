@@ -1,15 +1,70 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Custom Styles */
-body {
-  background-color: #050505;
-  color: white;
+@theme {
+  --color-neonPurple: #D200FF;
+  --color-neonBlue: #00E5FF;
+  --color-darkBg: #050505;
+  --shadow-neon: 0 0 20px rgba(210, 0, 255, 0.3), 0 0 40px rgba(0, 229, 255, 0.2);
 }
 
-.glass-panel {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Base Settings */
+body {
+  background-color: var(--color-darkBg);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* --- FIXED CYBER BACKGROUND (Scroll Fix) --- */
+/* Ye pseudo-element background ko pure screen par chipka dega */
+body::before {
+  content: "";
+  position: fixed; /* Scrolling par bhi background nahi hilega */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Content ke piche rahega */
+  
+  /* Cyber Grid Pattern */
+  background-color: #050505;
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glowing Orbs (Animation) */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(210, 0, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 40%);
+  animation: bgPulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgPulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* --- GLASS UI COMPONENTS --- */
+.glass-card {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--color-neonBlue);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+  transform: translateY(-2px);
 }
